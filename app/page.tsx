@@ -6,9 +6,14 @@ import HowItWorks from "@/components/landing-page/HowItWorks";
 import PricingSection from "@/components/landing-page/PricingSection";
 import WhatToAsk from "@/components/landing-page/WhatToAsk";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import React, { use } from "react";
 
-const HomePage = () => {
+const HomePage = async () => {
+  const user = await currentUser();
+
+  if (user) redirect("/dashboard");
   return (
     <div className="min-h-screen bg-background">
       <Header />
