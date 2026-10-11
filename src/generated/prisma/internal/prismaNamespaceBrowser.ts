@@ -91,7 +91,7 @@ export const DoctorScalarFieldEnum = {
   name: 'name',
   email: 'email',
   phone: 'phone',
-  spacialty: 'spacialty',
+  speciality: 'speciality',
   bio: 'bio',
   imageUrl: 'imageUrl',
   gender: 'gender',

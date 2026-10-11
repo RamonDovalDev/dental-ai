@@ -29,7 +29,7 @@ export type DoctorMinAggregateOutputType = {
   name: string | null
   email: string | null
   phone: string | null
-  spacialty: string | null
+  speciality: string | null
   bio: string | null
   imageUrl: string | null
   gender: $Enums.Gender | null
@@ -43,7 +43,7 @@ export type DoctorMaxAggregateOutputType = {
   name: string | null
   email: string | null
   phone: string | null
-  spacialty: string | null
+  speciality: string | null
   bio: string | null
   imageUrl: string | null
   gender: $Enums.Gender | null
@@ -57,7 +57,7 @@ export type DoctorCountAggregateOutputType = {
   name: number
   email: number
   phone: number
-  spacialty: number
+  speciality: number
   bio: number
   imageUrl: number
   gender: number
@@ -73,7 +73,7 @@ export type DoctorMinAggregateInputType = {
   name?: true
   email?: true
   phone?: true
-  spacialty?: true
+  speciality?: true
   bio?: true
   imageUrl?: true
   gender?: true
@@ -87,7 +87,7 @@ export type DoctorMaxAggregateInputType = {
   name?: true
   email?: true
   phone?: true
-  spacialty?: true
+  speciality?: true
   bio?: true
   imageUrl?: true
   gender?: true
@@ -101,7 +101,7 @@ export type DoctorCountAggregateInputType = {
   name?: true
   email?: true
   phone?: true
-  spacialty?: true
+  speciality?: true
   bio?: true
   imageUrl?: true
   gender?: true
@@ -188,7 +188,7 @@ export type DoctorGroupByOutputType = {
   name: string
   email: string
   phone: string
-  spacialty: string
+  speciality: string
   bio: string | null
   imageUrl: string
   gender: $Enums.Gender
@@ -223,7 +223,7 @@ export type DoctorWhereInput = {
   name?: Prisma.StringFilter<"Doctor"> | string
   email?: Prisma.StringFilter<"Doctor"> | string
   phone?: Prisma.StringFilter<"Doctor"> | string
-  spacialty?: Prisma.StringFilter<"Doctor"> | string
+  speciality?: Prisma.StringFilter<"Doctor"> | string
   bio?: Prisma.StringNullableFilter<"Doctor"> | string | null
   imageUrl?: Prisma.StringFilter<"Doctor"> | string
   gender?: Prisma.EnumGenderFilter<"Doctor"> | $Enums.Gender
@@ -238,7 +238,7 @@ export type DoctorOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
-  spacialty?: Prisma.SortOrder
+  speciality?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   gender?: Prisma.SortOrder
@@ -256,7 +256,7 @@ export type DoctorWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.DoctorWhereInput | Prisma.DoctorWhereInput[]
   name?: Prisma.StringFilter<"Doctor"> | string
   phone?: Prisma.StringFilter<"Doctor"> | string
-  spacialty?: Prisma.StringFilter<"Doctor"> | string
+  speciality?: Prisma.StringFilter<"Doctor"> | string
   bio?: Prisma.StringNullableFilter<"Doctor"> | string | null
   imageUrl?: Prisma.StringFilter<"Doctor"> | string
   gender?: Prisma.EnumGenderFilter<"Doctor"> | $Enums.Gender
@@ -271,7 +271,7 @@ export type DoctorOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
-  spacialty?: Prisma.SortOrder
+  speciality?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   gender?: Prisma.SortOrder
@@ -291,7 +291,7 @@ export type DoctorScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Doctor"> | string
   email?: Prisma.StringWithAggregatesFilter<"Doctor"> | string
   phone?: Prisma.StringWithAggregatesFilter<"Doctor"> | string
-  spacialty?: Prisma.StringWithAggregatesFilter<"Doctor"> | string
+  speciality?: Prisma.StringWithAggregatesFilter<"Doctor"> | string
   bio?: Prisma.StringNullableWithAggregatesFilter<"Doctor"> | string | null
   imageUrl?: Prisma.StringWithAggregatesFilter<"Doctor"> | string
   gender?: Prisma.EnumGenderWithAggregatesFilter<"Doctor"> | $Enums.Gender
@@ -305,7 +305,7 @@ export type DoctorCreateInput = {
   name: string
   email: string
   phone: string
-  spacialty: string
+  speciality: string
   bio?: string | null
   imageUrl: string
   gender: $Enums.Gender
@@ -320,7 +320,7 @@ export type DoctorUncheckedCreateInput = {
   name: string
   email: string
   phone: string
-  spacialty: string
+  speciality: string
   bio?: string | null
   imageUrl: string
   gender: $Enums.Gender
@@ -335,7 +335,7 @@ export type DoctorUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
-  spacialty?: Prisma.StringFieldUpdateOperationsInput | string
+  speciality?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
@@ -350,7 +350,7 @@ export type DoctorUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
-  spacialty?: Prisma.StringFieldUpdateOperationsInput | string
+  speciality?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
@@ -365,7 +365,7 @@ export type DoctorCreateManyInput = {
   name: string
   email: string
   phone: string
-  spacialty: string
+  speciality: string
   bio?: string | null
   imageUrl: string
   gender: $Enums.Gender
@@ -379,7 +379,7 @@ export type DoctorUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
-  spacialty?: Prisma.StringFieldUpdateOperationsInput | string
+  speciality?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
@@ -393,7 +393,7 @@ export type DoctorUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
-  spacialty?: Prisma.StringFieldUpdateOperationsInput | string
+  speciality?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
@@ -407,7 +407,7 @@ export type DoctorCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
-  spacialty?: Prisma.SortOrder
+  speciality?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   gender?: Prisma.SortOrder
@@ -421,7 +421,7 @@ export type DoctorMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
-  spacialty?: Prisma.SortOrder
+  speciality?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   gender?: Prisma.SortOrder
@@ -435,7 +435,7 @@ export type DoctorMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
-  spacialty?: Prisma.SortOrder
+  speciality?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   gender?: Prisma.SortOrder
@@ -476,7 +476,7 @@ export type DoctorCreateWithoutAppointmentsInput = {
   name: string
   email: string
   phone: string
-  spacialty: string
+  speciality: string
   bio?: string | null
   imageUrl: string
   gender: $Enums.Gender
@@ -490,7 +490,7 @@ export type DoctorUncheckedCreateWithoutAppointmentsInput = {
   name: string
   email: string
   phone: string
-  spacialty: string
+  speciality: string
   bio?: string | null
   imageUrl: string
   gender: $Enums.Gender
@@ -520,7 +520,7 @@ export type DoctorUpdateWithoutAppointmentsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
-  spacialty?: Prisma.StringFieldUpdateOperationsInput | string
+  speciality?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
@@ -534,7 +534,7 @@ export type DoctorUncheckedUpdateWithoutAppointmentsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
-  spacialty?: Prisma.StringFieldUpdateOperationsInput | string
+  speciality?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
@@ -579,7 +579,7 @@ export type DoctorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name?: boolean
   email?: boolean
   phone?: boolean
-  spacialty?: boolean
+  speciality?: boolean
   bio?: boolean
   imageUrl?: boolean
   gender?: boolean
@@ -595,7 +595,7 @@ export type DoctorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   name?: boolean
   email?: boolean
   phone?: boolean
-  spacialty?: boolean
+  speciality?: boolean
   bio?: boolean
   imageUrl?: boolean
   gender?: boolean
@@ -609,7 +609,7 @@ export type DoctorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   name?: boolean
   email?: boolean
   phone?: boolean
-  spacialty?: boolean
+  speciality?: boolean
   bio?: boolean
   imageUrl?: boolean
   gender?: boolean
@@ -623,7 +623,7 @@ export type DoctorSelectScalar = {
   name?: boolean
   email?: boolean
   phone?: boolean
-  spacialty?: boolean
+  speciality?: boolean
   bio?: boolean
   imageUrl?: boolean
   gender?: boolean
@@ -632,7 +632,7 @@ export type DoctorSelectScalar = {
   updatedAt?: boolean
 }
 
-export type DoctorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "phone" | "spacialty" | "bio" | "imageUrl" | "gender" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["doctor"]>
+export type DoctorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "phone" | "speciality" | "bio" | "imageUrl" | "gender" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["doctor"]>
 export type DoctorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   appointments?: boolean | Prisma.Doctor$appointmentsArgs<ExtArgs>
   _count?: boolean | Prisma.DoctorCountOutputTypeDefaultArgs<ExtArgs>
@@ -650,7 +650,7 @@ export type $DoctorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     name: string
     email: string
     phone: string
-    spacialty: string
+    speciality: string
     bio: string | null
     imageUrl: string
     gender: $Enums.Gender
@@ -1085,7 +1085,7 @@ export interface DoctorFieldRefs {
   readonly name: Prisma.FieldRef<"Doctor", 'String'>
   readonly email: Prisma.FieldRef<"Doctor", 'String'>
   readonly phone: Prisma.FieldRef<"Doctor", 'String'>
-  readonly spacialty: Prisma.FieldRef<"Doctor", 'String'>
+  readonly speciality: Prisma.FieldRef<"Doctor", 'String'>
   readonly bio: Prisma.FieldRef<"Doctor", 'String'>
   readonly imageUrl: Prisma.FieldRef<"Doctor", 'String'>
   readonly gender: Prisma.FieldRef<"Doctor", 'Gender'>
