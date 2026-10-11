@@ -3,12 +3,10 @@ export { cn } from "cn";
 import { AsYouType } from "libphonenumber-js";
 
 export const generateAvatar = (name: string, gender: "MALE" | "FEMALE") => {
-  const username = name.replace(/\s+/g, "").toLowerCase();
-  const base = "https://avatar.iran.liara.run/public";
-  if (gender === "FEMALE") {
-    return `${base}/girl?username=${username}`;
-  }
-  return `${base}/boy?username=${username}`;
+  const seed = encodeURIComponent(name.trim());
+  const style = gender === "FEMALE" ? "lorelei" : "adventurer";
+
+  return `https://api.dicebear.com/10.x/${style}/svg?seed=${seed}`;
 };
 
 export const formatPhoneNumber = (value: string) => {
