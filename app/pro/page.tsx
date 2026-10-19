@@ -1,9 +1,8 @@
 import NavBar from "@/components/NavBar";
 import { PricingTable } from "@clerk/nextjs";
-import { currentUser } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { CrownIcon } from "lucide-react";
 import { redirect } from "next/navigation";
-import React from "react";
 
 const ProPage = async () => {
   const user = await currentUser();
