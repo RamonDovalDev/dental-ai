@@ -23,16 +23,18 @@ type AppointmentWithRelations = Prisma.AppointmentGetPayload<{
 }>;
 
 const transformAppointment = (appointment: AppointmentWithRelations) => {
+  const { user, doctor, date, ...rest } = appointment;
   return {
-    ...appointment,
-    patientName:
-      `${appointment.user.firstName} ${appointment.user.lastName}`.trim(),
-    patientEmal: appointment.user.email,
-    doctorName: appointment.doctor.name,
-    doctorImageUrl: appointment.doctor.imageUrl,
-    date: appointment.date.toISOString().split("T")[0],
+    ...rest,
+    patientName: `${user.firstName} ${user.lastName}`.trim(),
+    patientEmail: user.email,
+    doctorName: doctor.name,
+    doctorImageUrl: doctor.imageUrl,
+    date: date.toISOString().split("T")[0], // "YYYY-MM-DD" (string)
   };
 };
+
+export type TransformedAppointment = ReturnType<typeof transformAppointment>;
 
 export const getAppointments = async () => {
   try {

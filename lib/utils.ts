@@ -31,7 +31,7 @@ export const getNext5Days = () => {
   return dates;
 };
 
-export const availableTimeSlots = () => {
+export const getAvailableTimeSlots = () => {
   return [
     "09:00",
     "09:30",
