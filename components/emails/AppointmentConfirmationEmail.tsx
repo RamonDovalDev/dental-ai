@@ -29,6 +29,8 @@ export default function AppointmentConfirmationEmail({
   duration,
   price,
 }: AppointmentConfirmationEmailProps) {
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL;
+
   return (
     <Html>
       <Head />
@@ -39,7 +41,7 @@ export default function AppointmentConfirmationEmail({
           {/* Logo + brand */}
           <Section style={logoContainer}>
             <Img
-              src="https://i.ibb.co.com/tRy6cC2/logo.png"
+              src={`${appUrl}/logo.png`}
               width="50"
               height="50"
               alt="Dental-AI"

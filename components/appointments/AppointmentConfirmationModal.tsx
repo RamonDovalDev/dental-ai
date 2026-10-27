@@ -34,7 +34,7 @@ const AppointmentConfirmationModal = ({
 }: AppointmentConfirmationModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md max-h-[85dvh] overflow-y-auto">
         <DialogHeader className="text-center space-y-4">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
             <CheckCircleIcon className="h-8 w-8 text-primary" />
@@ -49,7 +49,7 @@ const AppointmentConfirmationModal = ({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="min-h-screen space-y-6">
+        <div className="space-y-6">
           {/* Email Notification Section */}
           <div className="flex flex-col items-center space-y-3">
             <div className="relative">
@@ -106,14 +106,17 @@ const AppointmentConfirmationModal = ({
           {/* Action Buttons */}
           <div className="flex flex-col gap-3">
             <Link href="/appointments" className="w-full">
-              <Button className="w-full" onClick={() => onOpenChange(false)}>
+              <Button
+                className="w-full cursor-pointer"
+                onClick={() => onOpenChange(false)}
+              >
                 View My Appointments
               </Button>
             </Link>
 
             <Button
               variant="outline"
-              className="w-full"
+              className="w-full cursor-pointer"
               onClick={() => onOpenChange(false)}
             >
               Close
