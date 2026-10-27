@@ -1,7 +1,5 @@
-"use client";
-
 import { useAvailableDoctors } from "@/hooks/use-doctors";
-import { DoctorCardsLoading } from "./DoctorCardsLoading";
+import DoctorCardsLoading from "./DoctorCardsLoading";
 import {
   Card,
   CardContent,
@@ -9,14 +7,13 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { MapPinIcon, PhoneIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
-import { Badge } from "../ui/badge";
+import { MapPinIcon, PhoneIcon, StarIcon } from "lucide-react";
 import { Button } from "../ui/button";
 
 interface DoctorSelectionStepProps {
   selectedDentistId: string | null;
-  onSelectDentist: (dentisId: string) => void;
+  onSelectDentist: (dentistId: string) => void;
   onContinue: () => void;
 }
 
@@ -30,7 +27,7 @@ const DoctorSelectionStep = ({
   if (isLoading) {
     return (
       <div className="space-y-6">
-        <h2 className="text-2xl font-semibold">Choose your Dentist</h2>
+        <h2 className="text-2xl font-semibold">Choose Your Dentist</h2>
         <DoctorCardsLoading />
       </div>
     );
@@ -54,23 +51,23 @@ const DoctorSelectionStep = ({
                   alt={dentist.name}
                   width={64}
                   height={64}
-                  className="w-16 h-16 rounded-full object-cover"
                   unoptimized
+                  className="w-16 h-16 rounded-full object-cover"
                 />
-              </div>
-              <div className="flex-1">
-                <CardTitle className="text-lg">{dentist.name}</CardTitle>
-                <CardDescription className="text-primary font-medium">
-                  {dentist.speciality || "General Dentistry"}
-                </CardDescription>
-                <div className="flex items-center gap-2 mt-2">
-                  <div className="flex items-center gap-1">
-                    <StarIcon className="w-4 h-4 fill-amber-400 text-amber-400" />
-                    <span className="text-sm font-medium">5</span>
+                <div className="flex-1">
+                  <CardTitle className="text-lg">{dentist.name}</CardTitle>
+                  <CardDescription className="text-primary font-medium">
+                    {dentist.speciality || "General  Dentistry"}
+                  </CardDescription>
+                  <div className="flex items-center gap-2 mt-2">
+                    <div className="flex items-center gap-1">
+                      <StarIcon className="w-4 h-4 fill-amber-400 text-amber-400" />
+                      <span className="text-sm font-medium">5</span>
+                    </div>
+                    <span className="text-sm text-muted-foreground">
+                      {dentist.appointmentsCount} appointments
+                    </span>
                   </div>
-                  <span className="text-sm text-muted-foreground">
-                    {dentist.appointmentsCount} appointments
-                  </span>
                 </div>
               </div>
             </CardHeader>
@@ -86,9 +83,8 @@ const DoctorSelectionStep = ({
               </div>
               <p className="text-sm text-muted-foreground">
                 {dentist.bio ||
-                  "Experienced dental professional providing quality care."}
+                  "Experienced dental professional providing quality care"}
               </p>
-              <Badge variant="secondary">Licensed Professional</Badge>
             </CardContent>
           </Card>
         ))}

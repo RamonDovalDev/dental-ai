@@ -1,6 +1,6 @@
-import { APPOINTMENT_TYPES } from "@/lib/utils";
-import { Button } from "../ui/button";
 import { ChevronLeftIcon } from "lucide-react";
+import { Button } from "../ui/button";
+import { APPOINTMENT_TYPES } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import DoctorInfo from "./DoctorInfo";
 
@@ -34,20 +34,18 @@ const BookingConfirmationStep = ({
       <div className="flex items-center gap-4 mb-6">
         <Button onClick={onBack} variant="ghost" className="cursor-pointer">
           <ChevronLeftIcon className="w-4 h-4" />
-          Back
         </Button>
         <h2 className="text-2xl font-semibold">Confirm your Appointment</h2>
       </div>
 
-      <Card className="max-w-2xl">
+      <Card>
         <CardHeader>
           <CardTitle>Appointment Summary</CardTitle>
         </CardHeader>
-
         <CardContent className="space-y-4">
           <DoctorInfo doctorId={selectedDentistId} />
 
-          {/* Appointments Details */}
+          {/* Appointments Details  */}
           <div className="grid grid-cols-2 gap-4 pt-4 border-t">
             <div>
               <p className="text-sm text-muted-foreground">Appointment Type</p>
@@ -60,7 +58,7 @@ const BookingConfirmationStep = ({
             <div>
               <p className="text-sm text-muted-foreground">Date</p>
               <p className="font-medium">
-                {new Date(selectedDate).toLocaleString("es-ES", {
+                {new Date(selectedDate).toLocaleDateString("es-ES", {
                   weekday: "long",
                   year: "numeric",
                   month: "long",
@@ -85,7 +83,7 @@ const BookingConfirmationStep = ({
       </Card>
 
       {/* Action Buttons  */}
-      <div className="flex gap-2">
+      <div className="flex gap-4">
         <Button onClick={onModify} variant="outline" className="cursor-pointer">
           Modify Appointment
         </Button>

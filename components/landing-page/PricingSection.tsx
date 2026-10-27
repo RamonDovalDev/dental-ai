@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { SignUpButton } from "@clerk/nextjs";
+import { Show, SignUpButton } from "@clerk/nextjs";
 import { CheckCircleIcon } from "lucide-react";
 
 function PricingSection() {
@@ -53,11 +53,13 @@ function PricingSection() {
                     Essential dental appointment booking
                   </p>
                 </div>
-                <SignUpButton mode="modal">
-                  <Button className="w-full py-3 bg-linear-to-r from-muted to-muted/80 text-foreground rounded-xl font-semibold">
-                    Get Started Free
-                  </Button>
-                </SignUpButton>
+                <Show when="signed-out">
+                  <SignUpButton mode="modal" forceRedirectUrl="/dashboard">
+                    <Button className="w-full py-3 bg-linear-to-r from-muted to-muted/80 text-foreground rounded-xl font-semibold">
+                      Get Started Free
+                    </Button>
+                  </SignUpButton>
+                </Show>
 
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">

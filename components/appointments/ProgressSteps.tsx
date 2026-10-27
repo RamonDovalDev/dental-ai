@@ -24,7 +24,7 @@ const ProgressSteps = ({ currentStep }: { currentStep: number }) => {
 
             {/* Arrow - not shown for the last step */}
             {stepNumber < PROGRESS_STEPS.length && (
-              <ChevronRightIcon className="w-4 h-4 text-muted-foreground" />
+              <ChevronRightIcon className="w-4 h-4" />
             )}
           </div>
         );

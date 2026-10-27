@@ -1,7 +1,7 @@
 "use client";
 
+import AppointmentConfirmationModal from "@/components/appointments/AppointmentConfirmationModal";
 import BookingConfirmationStep from "@/components/appointments/BookingConfirmationStep";
-import { DoctorCardsLoading } from "@/components/appointments/DoctorCardsLoading";
 import DoctorSelectionStep from "@/components/appointments/DoctorSelectionStep";
 import ProgressSteps from "@/components/appointments/ProgressSteps";
 import TimeSelectionStep from "@/components/appointments/TimeSelectionStep";
@@ -11,7 +11,8 @@ import {
   useUserAppointments,
 } from "@/hooks/use-appointments";
 import { APPOINTMENT_TYPES } from "@/lib/utils";
-import { useState } from "react";
+import { format } from "date-fns";
+import React, { useState } from "react";
 import { toast } from "sonner";
 
 type BookedAppointment = NonNullable<
@@ -19,16 +20,16 @@ type BookedAppointment = NonNullable<
 >;
 
 const AppointmentsPage = () => {
+  const [currentStep, setCurrentStep] = useState(1);
   const [selectedDentistId, setSelectedDentistId] = useState<string | null>(
     null,
   );
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedType, setSelectedType] = useState("");
-  const [currentStep, setCurrentStep] = useState(1);
-  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [bookedAppointment, setBookedAppointment] =
     useState<BookedAppointment | null>(null);
+  const [showConfirmationModal, setShowCOnfirmationModal] = useState(false);
 
   const bookAppointmentMutation = useBookAppointment();
   const { data: userAppointments = [] } = useUserAppointments();
@@ -36,15 +37,15 @@ const AppointmentsPage = () => {
   const handleSelectDentist = (dentistId: string) => {
     setSelectedDentistId(dentistId);
 
-    // Reset when dentis changes
+    // Reset the state when dentist changes
     setSelectedDate("");
     setSelectedTime("");
     setSelectedType("");
   };
 
-  const handleBookAppintment = () => {
+  const handleBookAppointment = async () => {
     if (!selectedDentistId || !selectedDate || !selectedTime) {
-      toast.error("Please fill in all required files");
+      toast.error("Please fill in all required fields");
       return;
     }
 
@@ -64,12 +65,36 @@ const AppointmentsPage = () => {
           // Store the appointment details to show in the modal
           setBookedAppointment(appointment);
 
-          // Resend Mail
+          try {
+            const emailResponse = await fetch("/api/send-appointment-email", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userEmail: appointment.patientEmail,
+                doctorName: appointment.doctorName,
+                appointmentDate: format(
+                  new Date(appointment.date),
+                  "EEEE, MMMM d, yyyy",
+                ),
+                appointmentTime: appointment.time,
+                appointmentType: appointmentType?.name,
+                duration: appointmentType?.duration,
+                price: appointmentType?.price,
+              }),
+            });
+
+            if (!emailResponse.ok)
+              console.error("Failed to send confirmation email");
+          } catch (error) {
+            console.error("Error sending confirmation email: ", error);
+          }
 
           // Show the success modal
-          setShowConfirmationModal(true);
+          setShowCOnfirmationModal(true);
 
-          // reset form
+          // Reset
           setSelectedDentistId(null);
           setSelectedDate("");
           setSelectedTime("");
@@ -77,7 +102,7 @@ const AppointmentsPage = () => {
           setCurrentStep(1);
         },
         onError: (error) =>
-          toast.error(`Failed to book appointment: ${error.message}`),
+          toast.error(`failed to booka appointment: ${error.message}`),
       },
     );
   };
@@ -87,10 +112,11 @@ const AppointmentsPage = () => {
       <NavBar />
 
       <div className="max-w-7xl pt-24 px-6 py-8">
+        {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Book an Appointment</h1>
           <p className="text-muted-foreground">
-            Find and book with verfied dentists in your area
+            Find and book with verified dentists in your area
           </p>
         </div>
 
@@ -126,8 +152,24 @@ const AppointmentsPage = () => {
             selectedType={selectedType}
             isBooking={bookAppointmentMutation.isPending}
             onBack={() => setCurrentStep(2)}
-            onConfirm={handleBookAppintment}
             onModify={() => setCurrentStep(2)}
+            onConfirm={handleBookAppointment}
+          />
+        )}
+
+        {bookedAppointment && (
+          <AppointmentConfirmationModal
+            open={showConfirmationModal}
+            onOpenChange={setShowCOnfirmationModal}
+            appointmentDetails={{
+              doctorName: bookedAppointment.doctorName,
+              appointmentDate: format(
+                new Date(bookedAppointment.date),
+                "EEEE, MMMM d, yyyy",
+              ),
+              appointmentTime: bookedAppointment.time,
+              userEmail: bookedAppointment.patientEmail,
+            }}
           />
         )}
       </div>

@@ -1,10 +1,11 @@
+import React from "react";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Skeleton } from "../ui/skeleton";
 
 const DoctorCardSkeleton = () => {
   return (
-    <Card className="cursor-pointer transition-all hover:shadow-lg">
-      <CardHeader className="pb-4">
+    <Card>
+      <CardHeader>
         <div className="flex items-start gap-4">
           <Skeleton className="w-16 h-16 rounded-full" />
           <div className="flex-1 space-y-2">
@@ -33,7 +34,7 @@ const DoctorCardSkeleton = () => {
   );
 };
 
-export const DoctorCardsLoading = () => {
+const DoctorCardsLoading = () => {
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       {Array.from({ length: 6 }).map((_, index) => (
@@ -42,3 +43,5 @@ export const DoctorCardsLoading = () => {
     </div>
   );
 };
+
+export default DoctorCardsLoading;

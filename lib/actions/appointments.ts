@@ -3,6 +3,7 @@
 import { AppointmentStatus, Prisma } from "@/src/generated/prisma/client";
 import { prisma } from "../prisma";
 import { auth } from "@clerk/nextjs/server";
+import { syncUser } from "./user";
 
 type AppointmentWithRelations = Prisma.AppointmentGetPayload<{
   include: {
@@ -61,23 +62,22 @@ export const getAppointments = async () => {
 
 export const getUserAppointments = async () => {
   try {
-    // Get the authenticated user from Clerk
+    // Get the userId from Clerk session
     const { userId } = await auth();
-    if (!userId) {
-      throw new Error(
-        "You must be successfully signed in to get the user appoinstments",
-      );
-    }
+    if (!userId) return [];
 
-    // Find user by ClerkId from authenticated session
-    const user = await prisma.user.findUnique({
+    // Find user by ClerkId from authenticated session in database
+    let user = await prisma.user.findUnique({
       where: { clerkId: userId },
     });
+
+    // Self-healing: if it doesn't exist yet, we sync it on the fly
     if (!user) {
-      throw new Error(
-        "User not found. Please, ensure your account is properly set up",
-      );
+      user = await syncUser();
     }
+
+    // Even if it still couldn't be obtained, return empty list withour breking the dashboard
+    if (!user) return [];
 
     const appointments = await prisma.appointment.findMany({
       where: { userId: user.id },
@@ -102,7 +102,9 @@ export const getUserAppointments = async () => {
     return appointments.map(transformAppointment);
   } catch (error) {
     console.error("Error fetching the user apointments:", error);
-    throw new Error("Failed to fetchthe user appointments");
+
+    // Return an empty array to dashboard showa "NoNextAppointments" instead break
+    return [];
   }
 };
 
@@ -111,19 +113,18 @@ export const getUserAppointmentStats = async () => {
     // Get the authenticated user from Clerk
     const { userId } = await auth();
     if (!userId) {
-      throw new Error(
-        "You must be successfully signed in to get the user appoinstments",
-      );
+      return { totalAppointments: 0, completedAppointments: 0 };
     }
 
     // Find user by ClerkId from authenticated session
-    const user = await prisma.user.findUnique({
+    let user = await prisma.user.findUnique({
       where: { clerkId: userId },
     });
     if (!user) {
-      throw new Error(
-        "User not found. Please, ensure your account is properly set up",
-      );
+      user = await syncUser();
+    }
+    if (!user) {
+      return { totalAppointments: 0, completedAppointments: 0 };
     }
 
     // Run both database queries in parallel

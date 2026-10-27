@@ -1,4 +1,7 @@
+"use client";
+
 import { useBookedTimeSlots } from "@/hooks/use-appointments";
+import { getAvailableDoctors } from "@/lib/actions/doctors";
 import {
   APPOINTMENT_TYPES,
   getAvailableTimeSlots,
@@ -6,7 +9,7 @@ import {
 } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { ChevronLeftIcon, ClockIcon } from "lucide-react";
-import { Card, CardContent, CardHeader } from "../ui/card";
+import { Card, CardContent } from "../ui/card";
 
 interface TimeSelectionStepProps {
   selectedDentistId: string;
@@ -31,7 +34,7 @@ const TimeSelectionStep = ({
   onBack,
   onContinue,
 }: TimeSelectionStepProps) => {
-  const { data: bookedTimeSlots = [] } = useBookedTimeSlots(
+  const { data: bookTimeSlots = [] } = useBookedTimeSlots(
     selectedDentistId,
     selectedDate,
   );
@@ -41,6 +44,7 @@ const TimeSelectionStep = ({
 
   const handleSelectDate = (date: string) => {
     onDateChange(date);
+
     // Reset time when date changes
     onTimeChange("");
   };
@@ -56,20 +60,18 @@ const TimeSelectionStep = ({
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8">
-        {/* appointment type selection */}
+        {/* Appointment Type Selection */}
         <div className="space-y-4">
           <h3 className="text-lg font-medium">Appointment Type</h3>
           <div className="space-y-3">
             {APPOINTMENT_TYPES.map((type) => (
               <Card
                 key={type.id}
-                className={`cursor-pointer transition-all hover:shadow-sm ${
-                  selectedType === type.id ? "ring-2 ring-primary" : ""
-                }`}
+                className={`cursor-pointer transition-all hover:shadow-sm ${selectedType === type.id ? "ring-2 ring-primary" : ""}`}
                 onClick={() => onTypeChange(type.id)}
               >
-                <CardContent className="p-4">
-                  <div className="flex justify-between items-center">
+                <CardContent className="pb-4">
+                  <div className="flex items-center justify-between">
                     <div>
                       <h4 className="font-medium">{type.name}</h4>
                       <p className="text-sm text-muted-foreground">
@@ -86,7 +88,7 @@ const TimeSelectionStep = ({
           </div>
         </div>
 
-        {/* Date and Time Selection */}
+        {/* Date and Ttime Selection */}
         <div className="space-y-4">
           <h3 className="text-lg font-medium">Available Dates</h3>
 
@@ -97,7 +99,7 @@ const TimeSelectionStep = ({
                 key={date}
                 onClick={() => handleSelectDate(date)}
                 variant={selectedDate === date ? "default" : "outline"}
-                className="cursor-pointer h-auto p-3"
+                className="h-auto p-3 cursor-pointer"
               >
                 <div className="text-center">
                   <div className="font-medium">
@@ -112,24 +114,24 @@ const TimeSelectionStep = ({
             ))}
           </div>
 
-          {/* Time Selection - only shown when date is selected */}
+          {/* Time Selection -only shown when date is selected */}
           {selectedDate && (
             <div className="space-y-3">
               <h4 className="font-medium">Available Times</h4>
               <div className="grid grid-cols-3 gap-2">
                 {availableTimeSlots.map((time) => {
-                  const isBooked = bookedTimeSlots.includes(time);
+                  const isBooked = bookTimeSlots.includes(time);
 
                   return (
                     <Button
                       key={time}
                       onClick={() => !isBooked && onTimeChange(time)}
                       variant={selectedTime === time ? "default" : "outline"}
-                      className={`cursor-pointer ${isBooked ? "opacity-50 cursor-not-alowed" : ""}`}
                       size="sm"
                       disabled={isBooked}
+                      className={`cursor-pointer ${isBooked ? "opacity-50 cursor-not-allowed" : ""}`}
                     >
-                      <ClockIcon className="w-3 h-3 mr-1" />
+                      <ClockIcon />
                       {time}
                       {isBooked && " (Booked)"}
                     </Button>
@@ -141,7 +143,7 @@ const TimeSelectionStep = ({
         </div>
       </div>
 
-      {/* Continue Button - only shown when all selections are made */}
+      {/* Continue Button - only shown when everything is selected */}
       {selectedType && selectedDate && selectedTime && (
         <div className="flex justify-end">
           <Button onClick={onContinue} className="cursor-pointer">

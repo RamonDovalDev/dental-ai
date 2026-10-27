@@ -1,7 +1,13 @@
 "use client";
 
-import { UserButton, useUser } from "@clerk/nextjs";
-import { CalendarIcon, CrownIcon, HomeIcon, MicIcon } from "lucide-react";
+import { SignOutButton, UserButton, useUser } from "@clerk/nextjs";
+import {
+  CalendarIcon,
+  CrownIcon,
+  HomeIcon,
+  LogOutIcon,
+  MicIcon,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -13,7 +19,7 @@ const NavBar = () => {
   return (
     <nav className="fixed top-0 right-0 left-0 z-50 h-16 px-6 py-2 border-b border-border/50 bg-background backdrop-blur-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between h-full">
-        {/* Left Section */}
+        {/* Left Section: Logo and Links */}
         <div className="flex items-center gap-8">
           <Link href="/dashboard" className="flex items-center gap-2">
             <Image
@@ -68,7 +74,7 @@ const NavBar = () => {
           </div>
         </div>
 
-        {/* Right Section */}
+        {/* Right Section: User and Sign-Out Button */}
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
             <div className="hidden md:flex flex-col items-end">

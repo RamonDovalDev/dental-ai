@@ -1,8 +1,9 @@
-import { SignUpButton } from "@clerk/nextjs";
+import { Show, SignUpButton } from "@clerk/nextjs";
 import React from "react";
 import { Button } from "../ui/button";
 import { CalendarIcon, MicIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -51,23 +52,43 @@ const Hero = () => {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <SignUpButton mode="modal">
-                  <Button size="lg" className="cursor-pointer">
-                    <MicIcon className="size-5 " />
-                    Try Voice Agent
-                  </Button>
-                </SignUpButton>
+                <Show when="signed-out">
+                  <SignUpButton mode="modal" forceRedirectUrl="/dashboard">
+                    <Button size="lg" className="cursor-pointer">
+                      <MicIcon className="size-5 " />
+                      Try Voice Agent
+                    </Button>
+                  </SignUpButton>
 
-                <SignUpButton mode="modal">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="cursor-pointer"
-                  >
-                    <CalendarIcon className="size-5" />
-                    Book Appointment
-                  </Button>
-                </SignUpButton>
+                  <SignUpButton mode="modal" forceRedirectUrl="/dashboard">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="cursor-pointer"
+                    >
+                      <CalendarIcon className="size-5" />
+                      Book Appointment
+                    </Button>
+                  </SignUpButton>
+                </Show>
+
+                <Show when="signed-in">
+                  <Link href="/dashboard">
+                    <Button size="lg" className="cursor-pointer">
+                      Go to Dashboard
+                    </Button>
+                  </Link>
+                  <Link href="/appointments">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="cursor-pointer"
+                    >
+                      <CalendarIcon className="size-5" />
+                      Book Appointment
+                    </Button>
+                  </Link>
+                </Show>
               </div>
 
               {/* Users Testimonials */}

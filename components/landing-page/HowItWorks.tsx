@@ -1,4 +1,4 @@
-import { SignUpButton } from "@clerk/nextjs";
+import { Show, SignUpButton } from "@clerk/nextjs";
 import { ArrowRightIcon, ZapIcon } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -143,12 +143,14 @@ const HowItWorks = () => {
 
       {/* BOTTOM CTA */}
       <div className="text-center mt-16">
-        <SignUpButton mode="modal">
-          <Button size="lg" className="cursor-pointer">
-            <ArrowRightIcon className="mr-2 size-5" />
-            Get started now
-          </Button>
-        </SignUpButton>
+        <Show when="signed-out">
+          <SignUpButton mode="modal" forceRedirectUrl="/dashboard">
+            <Button size="lg" className="cursor-pointer">
+              <ArrowRightIcon className="mr-2 size-5" />
+              Get started now
+            </Button>
+          </SignUpButton>
+        </Show>
       </div>
     </section>
   );

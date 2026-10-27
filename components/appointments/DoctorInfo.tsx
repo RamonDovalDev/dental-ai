@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const DoctorInfo = ({ doctorId }: { doctorId: string }) => {
   const { data: doctors = [] } = useAvailableDoctors();
-  const doctor = doctors.find((doctor) => doctor.id === doctorId);
+  const doctor = doctors.find((d) => d.id === doctorId);
   if (!doctor) return null;
 
   return (
@@ -13,10 +13,9 @@ const DoctorInfo = ({ doctorId }: { doctorId: string }) => {
         alt={doctor.name}
         width={48}
         height={48}
-        className="w-12 h-12 rounded-full object-cover"
         unoptimized
+        className="w-12 h-12 rounded-full object-cover"
       />
-
       <div>
         <h3 className="font-medium">{doctor.name}</h3>
         <p className="text-sm text-muted-foreground">

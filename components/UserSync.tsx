@@ -2,24 +2,36 @@
 
 import { syncUser } from "@/lib/actions/user";
 import { useUser } from "@clerk/nextjs";
-import { useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useRef } from "react";
 
 const UserSync = () => {
   const { isSignedIn, isLoaded } = useUser();
+  const router = useRouter();
+  const pathname = usePathname();
+  const hasSyncedRef = useRef(false);
 
   useEffect(() => {
-    const handleUserSync = async () => {
-      if (isSignedIn && isLoaded) {
-        try {
-          await syncUser();
-        } catch (error) {
-          console.log("Failed to sync user", error);
+    // If Clerk hasn't loaden or isn't authenticated, or it's already synced, do nothing
+    if (!isLoaded || !isSignedIn || hasSyncedRef.current) return;
+
+    const performSync = async () => {
+      hasSyncedRef.current = true;
+      try {
+        // Sync user with Neon-Prisma
+        await syncUser();
+
+        if (pathname === "/") {
+          router.replace("/dashboard");
         }
+      } catch (error) {
+        console.error("Error in UserSync:", error);
+        hasSyncedRef.current = false;
       }
     };
 
-    handleUserSync();
-  }, [isSignedIn, isLoaded]);
+    void performSync();
+  }, [isSignedIn, isLoaded, pathname, router]);
 
   return null;
 };

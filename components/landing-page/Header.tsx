@@ -1,4 +1,6 @@
-import { SignInButton, SignUpButton } from "@clerk/nextjs";
+"use client";
+
+import { Show, SignInButton, SignOutButton, SignUpButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -19,6 +21,7 @@ const Header = () => {
           <span className="font-semibold text-lg">Dental-AI</span>
         </Link>
 
+        {/* Nav Links */}
         <div className="hidden md:flex items-center gap-8">
           <a href="#" className="text-muted-foreground hover:text-foreground">
             How It Works
@@ -31,18 +34,37 @@ const Header = () => {
           </a>
         </div>
 
+        {/* Authentication Actions */}
         <div className="flex items-center gap-3">
-          <SignInButton mode="modal">
-            <Button variant="ghost" size="sm" className="cursor-pointer">
-              Login
-            </Button>
-          </SignInButton>
+          {/* If user isn't signed in */}
+          <Show when="signed-out">
+            <SignInButton mode="modal" forceRedirectUrl="/dashboard">
+              <Button variant="ghost" size="sm" className="cursor-pointer">
+                Login
+              </Button>
+            </SignInButton>
 
-          <SignUpButton mode="modal">
-            <Button size="sm" className="cursor-pointer">
-              Sign Up
-            </Button>
-          </SignUpButton>
+            <SignUpButton mode="modal" forceRedirectUrl="/dashboard">
+              <Button size="sm" className="cursor-pointer">
+                Sign Up
+              </Button>
+            </SignUpButton>
+          </Show>
+
+          {/* If user is logged-in, show Dashboard and Sign Out Button */}
+          <Show when="signed-in">
+            <Link href="/dashboard">
+              <Button size="sm" className="cursor-pointer">
+                Dashboard
+              </Button>
+            </Link>
+
+            <SignOutButton redirectUrl="/">
+              <Button variant="ghost" size="sm" className="cursor-pointer">
+                Sign Out
+              </Button>
+            </SignOutButton>
+          </Show>
         </div>
       </div>
     </nav>
