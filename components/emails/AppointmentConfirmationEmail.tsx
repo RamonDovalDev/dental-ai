@@ -41,7 +41,7 @@ export default function AppointmentConfirmationEmail({
           {/* Logo + brand */}
           <Section style={logoContainer}>
             <Img
-              src={`${appUrl}/logo.png`}
+              src="https://i.postimg.cc/8jSv9Zqh/logo.png"
               width="50"
               height="50"
               alt="Dental-AI"
